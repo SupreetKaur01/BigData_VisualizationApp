@@ -59,8 +59,8 @@ twitter_client = tweepy.API(auth)
 def percentage(part,whole):
  return 100 * float(part)/float(whole)
 
-keyword = input("Please enter keyword or hashtag to search: ")
-num_tweet = int(input ("Please enter how many tweets to analyze: "))
+keyword = 'bitcoin'
+num_tweet = int('100')
 tweet_list=[]
 tweets=[]
 tweets = tweepy.Cursor(twitter_client.search_tweets, q=keyword).items(num_tweet)
@@ -85,12 +85,12 @@ print(df)
 # Time Series
 time_sentiment = pd.Series(data=df['sentiment'].values, index=df['date'])
 time_sentiment.plot(figsize=(10, 4), color='r', label="sentiments", legend=True)
-plt.savefig('sentiment.png')
+plt.savefig('sentiment_bitcoin.png')
 plt.show()
 
 df.sentiment.plot.density(color='green')
 plt.title('Density plot for sentiment')
-plt.savefig('sentiment_Density.png')
+plt.savefig('sentiment_Density_bitcoin.png')
 plt.show()
 
 
@@ -104,9 +104,9 @@ def create_wordcloud(text):
  stopwords=stopwords,
  repeat=True)
  wc.generate(str(text))
- wc.to_file("wc.png")
+ wc.to_file("wc_bitcoin.png")
  print("Word Cloud Saved Successfully")
- path="wc.png"
+ path="wc_bitcoin.png"
  sys.displayhook(Image.open(path))
 
 #Creating wordcloud for all tweets
