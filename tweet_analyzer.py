@@ -86,8 +86,16 @@ def bitcoinAnalysis() :
 
     # Time Series
     time_sentiment = pd.Series(data=df['sentiment'].values, index=df['date'])
-    time_sentiment.plot(figsize=(10, 4), color='r', label="bitcoin-sentiments", legend=True)
+    time_sentiment.plot(figsize=(5, 4), label="bitcoin-sentiments")
     plt.savefig('sentiment_bitcoin.png')
+    plt.show()
+
+    # Layered Time Series:
+    time_sentiment = pd.Series(data=df['sentiment'].values, index=df['date'])
+    time_sentiment.plot(figsize=(16, 4), label="sentiment", legend=True)
+    time_likes = pd.Series(data=df['likes'].values, index=df['date'])
+    time_likes.plot(figsize=(16, 4), label="likes", legend=True)
+    plt.savefig('Layered_sentiment_bitcoin.png')
     plt.show()
 
     df.sentiment.plot.density(color='green')
@@ -95,11 +103,22 @@ def bitcoinAnalysis() :
     plt.savefig('sentiment_Density_bitcoin.png')
     plt.show()
 
+    df.sentiment.plot.density(legend=True, label="sentiment")
+    df.likes.plot.density(legend=True, label="likes")
+    plt.title('Density plot for bitcoin-layered')
+    plt.savefig('sentiment_Density_bitcoin.png')
+    plt.show()
 
     #Function to Create Wordcloud
     def create_wordcloud(text):
      mask = np.array(Image.open("cloud.png"))
      stopwords = set(STOPWORDS)
+     stopwords.add("RT")
+     stopwords.add("n")
+     stopwords.add("t")
+     stopwords.add("co")
+     stopwords.add("https")
+     stopwords.add("retweet")
      wc = WordCloud(background_color="white",
      mask = mask,
      max_words=3000,
@@ -155,6 +174,12 @@ def ethereumAnalysis() :
     def create_wordcloud(text):
      mask = np.array(Image.open("cloud.png"))
      stopwords = set(STOPWORDS)
+     stopwords.add("RT")
+     stopwords.add("n")
+     stopwords.add("t")
+     stopwords.add("co")
+     stopwords.add("https")
+     stopwords.add("retweet")
      wc = WordCloud(background_color="white",
      mask = mask,
      max_words=3000,
