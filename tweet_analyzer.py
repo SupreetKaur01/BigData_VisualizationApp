@@ -174,6 +174,7 @@ def ethereumAnalysis() :
 
     df = pd.DataFrame(data=[tweet.text for tweet in tweet_list], columns=['tweets'])
     df['sentiment'] = np.array([analyze_sentiment(tweet.text) for tweet in tweet_list])
+    df['date'] = np.array([tweet.created_at for tweet in tweet_list])
 
     #render dataframe as html
     html = df.to_html(classes='table table-stripped')
@@ -185,7 +186,6 @@ def ethereumAnalysis() :
 
     df['id'] = np.array([tweet.id for tweet in tweet_list])
     df['len'] = np.array([len(tweet.text) for tweet in tweet_list])
-    df['date'] = np.array([tweet.created_at for tweet in tweet_list])
     df['source'] = np.array([tweet.source for tweet in tweet_list])
     df['likes'] = np.array([tweet.favorite_count for tweet in tweet_list])
     df['retweets'] = np.array([tweet.retweet_count for tweet in tweet_list])
