@@ -86,12 +86,12 @@ def bitcoinAnalysis() :
 
     # Time Series
     time_sentiment = pd.Series(data=df['sentiment'].values, index=df['date'])
-    time_sentiment.plot(figsize=(10, 4), color='r', label="sentiments", legend=True)
+    time_sentiment.plot(figsize=(10, 4), color='r', label="bitcoin-sentiments", legend=True)
     plt.savefig('sentiment_bitcoin.png')
     plt.show()
 
     df.sentiment.plot.density(color='green')
-    plt.title('Density plot for sentiment')
+    plt.title('Density plot for bitcoin sentiment')
     plt.savefig('sentiment_Density_bitcoin.png')
     plt.show()
 
@@ -141,12 +141,12 @@ def ethereumAnalysis() :
 
     # Time Series
     time_sentiment = pd.Series(data=df['sentiment'].values, index=df['date'])
-    time_sentiment.plot(figsize=(10, 4), color='r', label="sentiments", legend=True)
+    time_sentiment.plot(figsize=(10, 4), color='r', label="ethereum sentiments", legend=True)
     plt.savefig('sentiment_ethereum.png')
     plt.show()
 
     df.sentiment.plot.density(color='green')
-    plt.title('Density plot for sentiment')
+    plt.title('Density plot for ethereum sentiment')
     plt.savefig('sentiment_Density_ethereum.png')
     plt.show()
 
