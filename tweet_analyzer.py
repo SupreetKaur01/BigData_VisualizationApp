@@ -77,6 +77,16 @@ def bitcoinAnalysis() :
 
     df = pd.DataFrame(data=[tweet.text for tweet in tweet_list], columns=['tweets'])
     df['sentiment'] = np.array([analyze_sentiment(tweet.text) for tweet in tweet_list])
+
+    #render dataframe as html
+    html = df.to_html(classes='table table-stripped')
+
+    #write html to file
+    text_file = open("tweets-df-bitcoin.html", "w", encoding="utf-8")
+    text_file.write(html)
+    text_file.close()
+
+    
     df['id'] = np.array([tweet.id for tweet in tweet_list])
     df['len'] = np.array([len(tweet.text) for tweet in tweet_list])
     df['date'] = np.array([tweet.created_at for tweet in tweet_list])
@@ -164,6 +174,15 @@ def ethereumAnalysis() :
 
     df = pd.DataFrame(data=[tweet.text for tweet in tweet_list], columns=['tweets'])
     df['sentiment'] = np.array([analyze_sentiment(tweet.text) for tweet in tweet_list])
+
+    #render dataframe as html
+    html = df.to_html(classes='table table-stripped')
+
+    #write html to file
+    text_file = open("tweets-df-ethereum.html", "w", encoding="utf-8")
+    text_file.write(html)
+    text_file.close()
+
     df['id'] = np.array([tweet.id for tweet in tweet_list])
     df['len'] = np.array([len(tweet.text) for tweet in tweet_list])
     df['date'] = np.array([tweet.created_at for tweet in tweet_list])
