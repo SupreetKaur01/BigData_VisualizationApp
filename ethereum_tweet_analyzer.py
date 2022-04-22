@@ -59,56 +59,58 @@ twitter_client = tweepy.API(auth)
 def percentage(part,whole):
  return 100 * float(part)/float(whole)
 
-keyword = 'bitcoin'
-num_tweet = int('100')
-tweet_list=[]
-tweets=[]
-tweets = tweepy.Cursor(twitter_client.search_tweets, q=keyword).items(num_tweet)
+def ethereumAnalysis() :
 
-for tweet in tweets:
-   tweet_list.append(tweet)
+    keyword = 'ethereum'
+    num_tweet = int('100')
+    tweet_list=[]
+    tweets=[]
+    tweets = tweepy.Cursor(twitter_client.search_tweets, q=keyword).items(num_tweet)
 
-#print(tweet_list)
+    for tweet in tweets:
+       tweet_list.append(tweet)
 
-
-df = pd.DataFrame(data=[tweet.text for tweet in tweet_list], columns=['tweets'])
-df['sentiment'] = np.array([analyze_sentiment(tweet.text) for tweet in tweet_list])
-df['id'] = np.array([tweet.id for tweet in tweet_list])
-df['len'] = np.array([len(tweet.text) for tweet in tweet_list])
-df['date'] = np.array([tweet.created_at for tweet in tweet_list])
-df['source'] = np.array([tweet.source for tweet in tweet_list])
-df['likes'] = np.array([tweet.favorite_count for tweet in tweet_list])
-df['retweets'] = np.array([tweet.retweet_count for tweet in tweet_list])
-print(df)
+    #print(tweet_list)
 
 
-# Time Series
-time_sentiment = pd.Series(data=df['sentiment'].values, index=df['date'])
-time_sentiment.plot(figsize=(10, 4), color='r', label="sentiments", legend=True)
-plt.savefig('sentiment_bitcoin.png')
-plt.show()
+    df = pd.DataFrame(data=[tweet.text for tweet in tweet_list], columns=['tweets'])
+    df['sentiment'] = np.array([analyze_sentiment(tweet.text) for tweet in tweet_list])
+    df['id'] = np.array([tweet.id for tweet in tweet_list])
+    df['len'] = np.array([len(tweet.text) for tweet in tweet_list])
+    df['date'] = np.array([tweet.created_at for tweet in tweet_list])
+    df['source'] = np.array([tweet.source for tweet in tweet_list])
+    df['likes'] = np.array([tweet.favorite_count for tweet in tweet_list])
+    df['retweets'] = np.array([tweet.retweet_count for tweet in tweet_list])
+    print(df)
 
-df.sentiment.plot.density(color='green')
-plt.title('Density plot for sentiment')
-plt.savefig('sentiment_Density_bitcoin.png')
-plt.show()
+
+    # Time Series
+    time_sentiment = pd.Series(data=df['sentiment'].values, index=df['date'])
+    time_sentiment.plot(figsize=(10, 4), color='r', label="sentiments", legend=True)
+    plt.savefig('sentiment_ethereum.png')
+    plt.show()
+
+    df.sentiment.plot.density(color='green')
+    plt.title('Density plot for sentiment')
+    plt.savefig('sentiment_Density_ethereum.png')
+    plt.show()
 
 
-#Function to Create Wordcloud
-def create_wordcloud(text):
- mask = np.array(Image.open("cloud.png"))
- stopwords = set(STOPWORDS)
- wc = WordCloud(background_color="white",
- mask = mask,
- max_words=3000,
- stopwords=stopwords,
- repeat=True)
- wc.generate(str(text))
- wc.to_file("wc_bitcoin.png")
- print("Word Cloud Saved Successfully")
- path="wc_bitcoin.png"
- sys.displayhook(Image.open(path))
+    #Function to Create Wordcloud
+    def create_wordcloud(text):
+     mask = np.array(Image.open("cloud.png"))
+     stopwords = set(STOPWORDS)
+     wc = WordCloud(background_color="white",
+     mask = mask,
+     max_words=3000,
+     stopwords=stopwords,
+     repeat=True)
+     wc.generate(str(text))
+     wc.to_file("wc_ethereum.png")
+     print("Word Cloud Saved Successfully")
+     path="wc_ethereum.png"
+     sys.displayhook(Image.open(path))
 
-#Creating wordcloud for all tweets
-create_wordcloud(df["tweets"].values)
+    #Creating wordcloud for all tweets
+    create_wordcloud(df["tweets"].values)
 
